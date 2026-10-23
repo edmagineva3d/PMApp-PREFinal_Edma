@@ -1,0 +1,22 @@
+:root {
+  --bg-main: #F7F7F2;
+  --surface-primary: #FFFFFF;
+  --surface-light: #ECEEF4;
+  --text-main: #171717;
+  --text-secondary: #626262;
+  --border-color: #202020;
+  --accent-primary: #3659E3;
+  --accent-secondary: #C7F36B;
+  --accent-supporting: #FFB86B;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
