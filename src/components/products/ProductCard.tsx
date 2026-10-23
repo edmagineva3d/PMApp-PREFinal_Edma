@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { motion } from 'motion/react';
 import type { Product } from '../../types/product';
 import { calculateSubtotal } from '../../utils/calculations';
 import { formatCurrency } from '../../utils/currency';
@@ -45,11 +45,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div
-      
-      
-      
-      
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+      whileHover={{ y: -4, transition: { duration: 0.15 } }}
       className="brutal-card"
       style={{
         display: 'flex',
@@ -375,7 +375,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
