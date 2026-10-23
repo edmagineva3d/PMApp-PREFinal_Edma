@@ -36,7 +36,7 @@ export const App: React.FC = () => {
           </div>
 
           {/* Mobile Navigation Bar */}
-          
+          <MobileNavigation />
         </div>
 
         {/* Global Notifications Toaster */}
