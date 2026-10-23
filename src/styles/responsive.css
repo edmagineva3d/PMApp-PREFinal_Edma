@@ -1,0 +1,279 @@
+/* ==========================================================================
+   RESPONSIVE LAYOUT & CONTAINER ARCHITECTURE
+   ========================================================================== */
+
+/* Overall App Shell */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  position: relative;
+}
+
+/* Icon Rail (Desktop) */
+.icon-rail {
+  width: var(--rail-width);
+  background-color: var(--surface-primary);
+  border-right: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 50;
+  flex-shrink: 0;
+}
+
+.rail-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.rail-logo-box {
+  width: 48px;
+  height: 48px;
+  background-color: var(--accent-secondary);
+  border: 2px solid var(--border-color);
+  box-shadow: 2px 2px 0px var(--border-color);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: var(--text-main);
+}
+
+.rail-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  width: 100%;
+  align-items: center;
+}
+
+.rail-nav-item {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  border: 2px solid transparent;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.rail-nav-item:hover {
+  background-color: var(--surface-light);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+.rail-nav-item.active {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+  border-color: var(--border-color);
+  box-shadow: 3px 3px 0px var(--border-color);
+}
+
+/* Tooltip on rail hover */
+.rail-tooltip {
+  position: absolute;
+  left: 64px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--border-color);
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 100;
+}
+
+.rail-nav-item:hover .rail-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(4px);
+}
+
+/* Rail Badge (Cart count) */
+.rail-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--accent-supporting);
+  color: var(--text-main);
+  font-family: var(--font-data);
+  font-size: 0.7rem;
+  font-weight: 800;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Content Body */
+.main-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Content Header */
+.app-header {
+  height: var(--header-height);
+  background-color: var(--surface-primary);
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.header-search {
+  position: relative;
+  max-width: 380px;
+  width: 100%;
+}
+
+.header-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.header-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 38px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background-color: var(--bg-main);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.header-search-input:focus {
+  border-color: var(--accent-primary);
+  background-color: #FFFFFF;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.content-area {
+  flex: 1;
+  padding: 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Mobile Nav Bar */
+.mobile-nav-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: var(--surface-primary);
+  border-top: 2px solid var(--border-color);
+  z-index: 60;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+.mobile-nav-item.active {
+  color: var(--accent-primary);
+  font-weight: 800;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+  .icon-rail {
+    display: none;
+  }
+
+  .mobile-nav-bar {
+    display: flex;
+  }
+
+  .content-area {
+    padding: 20px 16px;
+    padding-bottom: 84px; /* Space for mobile nav */
+  }
+
+  .app-header {
+    padding: 0 16px;
+  }
+
+  .header-search {
+    max-width: 240px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-header {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .header-search {
+    max-width: 100%;
+    order: 3;
+    width: 100%;
+  }
+
+  .content-area {
+    padding: 16px 12px 88px 12px;
+  }
+}
+
