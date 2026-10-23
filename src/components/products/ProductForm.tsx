@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import type { Product } from '../../types/product';
-import { CATEGORIES } from '../../data/defaultProducts';
+import { CATEGORIES, SAMPLE_PRESET_IMAGES } from '../../data/defaultProducts';
+import { UploadSimple } from '@phosphor-icons/react';
 
 interface ProductFormProps {
   onSubmit: (data: Omit<Product, 'id' | 'createdAt'>) => void;
@@ -16,9 +17,23 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
   const [quantity, setQuantity] = useState('10');
   const [rating, setRating] = useState(5);
   const [image, setImage] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setImage(reader.result as string);
+    reader.readAsDataURL(file);
+  };
 
   return (
     <form onSubmit={(e) => { e.preventDefault(); onSubmit({ name, category, description, specifications, price: parseFloat(price), quantity: parseInt(quantity), rating, image }); }}>
+      <div onClick={() => fileInputRef.current?.click()} style={{ cursor: 'pointer', border: '2px dashed var(--border-color)', padding: 16 }}>
+        <input type="file" ref={fileInputRef} accept="image/*" style={{ display: 'none' }} onChange={handleFileUpload} />
+        <UploadSimple size={24} />
+        <span>Upload Product Image</span>
+      </div>
       <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Product Name" className="brutal-input" />
       <select value={category} onChange={(e) => setCategory(e.target.value)} className="brutal-input">
         {CATEGORIES.filter(c => c !== 'All Products').map(c => <option key={c} value={c}>{c}</option>)}
