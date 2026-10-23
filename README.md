@@ -5,6 +5,7 @@
 <p align="center">
   <strong>Name:</strong> Gineva Edma <br>
   <strong>Section:</strong> BSIT 3D
+  <strong>Section:</strong> PRE-Final
 </p>
 
 <h1 align="center">📦 Product Management App</h1>
