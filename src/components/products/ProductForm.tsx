@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import type { Product } from '../../types/product';
 import { CATEGORIES, SAMPLE_PRESET_IMAGES } from '../../data/defaultProducts';
-import { UploadSimple } from '@phosphor-icons/react';
+import { UploadSimple, Image as ImageIcon } from '@phosphor-icons/react';
 
 interface ProductFormProps {
   onSubmit: (data: Omit<Product, 'id' | 'createdAt'>) => void;
@@ -28,21 +28,29 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); onSubmit({ name, category, description, specifications, price: parseFloat(price), quantity: parseInt(quantity), rating, image }); }}>
-      <div onClick={() => fileInputRef.current?.click()} style={{ cursor: 'pointer', border: '2px dashed var(--border-color)', padding: 16 }}>
-        <input type="file" ref={fileInputRef} accept="image/*" style={{ display: 'none' }} onChange={handleFileUpload} />
-        <UploadSimple size={24} />
-        <span>Upload Product Image</span>
+    <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24 }}>
+      <form onSubmit={(e) => { e.preventDefault(); onSubmit({ name, category, description, specifications, price: parseFloat(price), quantity: parseInt(quantity), rating, image }); }}>
+        <div onClick={() => fileInputRef.current?.click()} style={{ cursor: 'pointer', border: '2px dashed var(--border-color)', padding: 16 }}>
+          <input type="file" ref={fileInputRef} accept="image/*" style={{ display: 'none' }} onChange={handleFileUpload} />
+          <UploadSimple size={24} />
+          <span>Upload Product Image</span>
+        </div>
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Product Name" className="brutal-input" />
+        <select value={category} onChange={(e) => setCategory(e.target.value)} className="brutal-input">
+          {CATEGORIES.filter(c => c !== 'All Products').map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" className="brutal-input" />
+        <textarea value={specifications} onChange={(e) => setSpecifications(e.target.value)} placeholder="Specifications" className="brutal-input" />
+        <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price" className="brutal-input" />
+        <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Quantity" className="brutal-input" />
+        <button type="submit" className="brutal-btn brutal-btn-primary">Register Product</button>
+      </form>
+      <div className="brutal-card" style={{ padding: 16 }}>
+        <h4>Live Preview</h4>
+        {image ? <img src={image} alt="Preview" style={{ width: '100%', height: 160, objectFit: 'cover' }} /> : <div style={{ height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={32} /></div>}
+        <h5>{name || 'Product Title Preview'}</h5>
+        <p>₱{price} • {quantity} in stock</p>
       </div>
-      <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Product Name" className="brutal-input" />
-      <select value={category} onChange={(e) => setCategory(e.target.value)} className="brutal-input">
-        {CATEGORIES.filter(c => c !== 'All Products').map(c => <option key={c} value={c}>{c}</option>)}
-      </select>
-      <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" className="brutal-input" />
-      <textarea value={specifications} onChange={(e) => setSpecifications(e.target.value)} placeholder="Specifications" className="brutal-input" />
-      <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price" className="brutal-input" />
-      <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Quantity" className="brutal-input" />
-      <button type="submit" className="brutal-btn brutal-btn-primary">Register Product</button>
-    </form>
+    </div>
   );
 };
