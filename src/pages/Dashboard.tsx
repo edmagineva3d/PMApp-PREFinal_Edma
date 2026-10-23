@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Plus } from '@phosphor-icons/react';
+import { ArrowRight, Plus, Package, CurrencyCircleDollar, WarningOctagon, ShoppingCart } from '@phosphor-icons/react';
+import { StatPanel } from '../components/ui/StatPanel';
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -18,6 +19,14 @@ export const Dashboard: React.FC = () => {
             <Plus size={18} weight="bold" />
             <span>Add New Product</span>
           </button>
+        </div>
+      </section>
+      <section className="stats-section">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+          <StatPanel label="Total Products" value="6" subValue="Active Catalog" icon={<Package size={22} weight="bold" />} />
+          <StatPanel label="Inventory Value" value="₱225,480.00" subValue="Computed Subtotals" icon={<CurrencyCircleDollar size={22} weight="bold" />} accentColor="blue" isLarge />
+          <StatPanel label="Low Stock Items" value="2" subValue="Quantity < 5" icon={<WarningOctagon size={22} weight="bold" />} accentColor="amber" />
+          <StatPanel label="Cart Items" value="0 units" subValue="Cart ready" icon={<ShoppingCart size={22} weight="bold" />} />
         </div>
       </section>
     </div>
